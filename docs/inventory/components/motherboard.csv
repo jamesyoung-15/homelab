@@ -1,0 +1,9 @@
+mb_id,brand,model,form_factor,socket,onboard_cpu,ram_type,ram_form,ram_slots,m2_slots,sata_ports,serial,host_id,status,notes
+mb-01,Gigabyte,H610I DDR4,mini-itx,LGA1700,,ddr4,dimm,2,1,4,,,,M.2 PCIe 3.0 x4
+mb-02,Gigabyte,B560I AORUS PRO AX,mini-itx,LGA1200,,ddr4,dimm,2,2,4,,,,M.2 1x PCIe 4.0 x4 (11th gen CPU only) + 1x PCIe 3.0 x4
+mb-03,ASRock,J4125B-ITX,mini-itx,,Celeron J4125,ddr4,sodimm,2,0,2,,,,
+mb-04,ASRock,J5040-ITX,mini-itx,,Pentium Silver J5040,ddr4,sodimm,2,0,4,,,,M.2 key E wifi slot only
+mb-05,ASRock,J4105-ITX,mini-itx,,Celeron J4105,ddr4,sodimm,2,0,4,,,,M.2 key E wifi slot only
+mb-06,ASUS,ROG Strix B550-I,mini-itx,AM4,,ddr4,dimm,2,2,4,,,,M.2 1x PCIe 4.0 x4 + 1x PCIe 3.0 x4
+mb-07,ASUS,ROG Strix B650E-I,mini-itx,AM5,,ddr5,dimm,2,2,2,,,,M.2 1x PCIe 5.0 x4 + 1x PCIe 4.0 x4
+mb-08,CWWK,M11 8-Bay NAS Motherboard,mini-itx,,Core i5-8265U,ddr4,sodimm,2,2,8,,,,M.2 2x PCIe 3.0 x2; SATA 2 native + 6 via ASM1166; ES CPU; verify variant (6-SATA version exists)

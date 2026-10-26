@@ -1,0 +1,11 @@
+network_id,type,brand,model,ports,speed,managed,poe,serial,location,status,notes
+sw-01,switch,YuanLey,YS25-0502,7,5x 2.5G RJ45 + 2x 10G SFP+,no,no,,,,
+sw-02,switch,YuanLey,YS25-0502,7,5x 2.5G RJ45 + 2x 10G SFP+,no,no,,,,
+sw-03,switch,TP-Link,TL-SG108E,8,1G,yes,no,,,,
+sw-04,switch,TP-Link,TL-SG108E,8,1G,yes,no,,,,
+sw-05,switch,TP-Link,TL-SG105E,5,1G,yes,no,,,,
+sw-06,switch,TP-Link,TL-SG105E,5,1G,yes,no,,,,
+sw-07,switch,TP-Link,TL-SG105E,5,1G,yes,no,,,,
+sw-08,switch,TP-Link,TL-SG105E,5,1G,yes,no,,,,
+sw-09,switch,TP-Link,TL-SG105E,5,1G,yes,no,,,,
+sw-10,switch,TP-Link,TL-SF1005P,5,100M,no,yes,,,,

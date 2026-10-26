@@ -1,0 +1,5 @@
+nic_id,brand,model,chipset,interface,ports,speed_gbps,serial,host_id,status,notes
+nic-01,Realtek,,RTL8125B,,1,2.5,,,,
+nic-02,Realtek,,RTL8125B,,1,2.5,,,,
+nic-03,Realtek,,RTL8125B,,1,2.5,,,,
+nic-04,Realtek,,RTL8125B,,1,2.5,,,,

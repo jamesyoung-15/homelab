@@ -1,0 +1,10 @@
+host_id,name,build,environment,make_model,builtin_spec,hw_address,serial,location,status,notes
+pve-node1,Proxmox Node 1,custom,prod,,,,,rack,active,example row - specs come from components.csv
+mini-01,BOSGAME E7,prebuilt,,BOSGAME E7 Mini PC,Intel Core 3 100U,,,,,
+rpi5-01,Raspberry Pi 5,sbc,,Raspberry Pi 5,BCM2712,,,,,
+rpi4-01,Raspberry Pi 4,sbc,,Raspberry Pi 4,BCM2711,,,,,
+rpi3b-01,Raspberry Pi 3B,sbc,,Raspberry Pi 3B,BCM2837,,,,,
+opi5-01,Orange Pi 5,sbc,,Orange Pi 5,RK3588S,,,,,
+opiz2-01,Orange Pi Zero 2,sbc,,Orange Pi Zero 2,Allwinner H616,,,,,
+opiz2-02,Orange Pi Zero 2,sbc,,Orange Pi Zero 2,Allwinner H616,,,,,
+opiz2-03,Orange Pi Zero 2,sbc,,Orange Pi Zero 2,Allwinner H616,,,,,

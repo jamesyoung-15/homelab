@@ -1,0 +1,18 @@
+ram_id,brand,model,part_number,form_factor,ddr_gen,capacity_gb,speed_mts,cas_latency,serial,host_id,status,notes
+ram-01,Crucial,Pro,CP2K32G4DFRA32A,dimm,ddr4,32,3200,22,,,,
+ram-02,Crucial,Pro,CP2K32G4DFRA32A,dimm,ddr4,32,3200,22,,,,
+ram-03,SK hynix,,HMA854S6CJR6N-XN,sodimm,ddr4,4,3200,22,,,,
+ram-04,SK hynix,,HMA854S6CJR6N-XN,sodimm,ddr4,4,3200,22,,,,
+ram-05,Corsair,Vengeance,CMK64GX5M2B6000C30,dimm,ddr5,32,6000,30,,,,
+ram-06,Corsair,Vengeance,CMK64GX5M2B6000C30,dimm,ddr5,32,6000,30,,,,
+ram-07,Corsair,Vengeance LPX,CMK8GX4M2A2400C14,dimm,ddr4,4,2400,14,,,,
+ram-08,Corsair,Vengeance LPX,CMK8GX4M2A2400C14,dimm,ddr4,4,2400,14,,,,
+ram-09,Samsung,,M471A5244CB0,sodimm,ddr4,4,3200,22,,,,CL assumes -CWE suffix
+ram-10,Samsung,,M471A5244CB0,sodimm,ddr4,4,3200,22,,,,CL assumes -CWE suffix
+ram-11,TEAMGROUP,Elite,TED532G5600C46ADC-S01,sodimm,ddr5,16,5600,46,,,,
+ram-12,TEAMGROUP,Elite,TED532G5600C46ADC-S01,sodimm,ddr5,16,5600,46,,,,
+ram-13,TEAMGROUP,Elite,TED48G2666C19-S01,sodimm,ddr4,8,2666,19,,,,
+ram-14,TEAMGROUP,Vulkan,TLZGD432G3200HC16FDC01,dimm,ddr4,16,3200,16,,,,
+ram-15,TEAMGROUP,Vulkan,TLZGD432G3200HC16FDC01,dimm,ddr4,16,3200,16,,,,
+ram-16,Samsung,,M471A1K43EB1-CWE,sodimm,ddr4,8,3200,22,,,,
+ram-17,Samsung,,M471A1K43EB1-CWE,sodimm,ddr4,8,3200,22,,,,

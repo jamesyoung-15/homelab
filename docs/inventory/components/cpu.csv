@@ -1,0 +1,5 @@
+cpu_id,brand,model,socket,cores,threads,tdp_w,igpu,serial,host_id,status,notes
+cpu-01,Intel,Core i3-10100,LGA1200,4,8,65,yes,,,,UHD 630
+cpu-02,Intel,Core i3-12100,LGA1700,4,8,60,yes,,,,UHD 730
+cpu-03,AMD,Ryzen 7 3700X,AM4,8,16,65,no,,,,
+cpu-04,AMD,Ryzen 7 7800X3D,AM5,8,16,120,yes,,,,Radeon 2CU

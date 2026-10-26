@@ -1,0 +1,10 @@
+psu_id,brand,model,form_factor,wattage_w,input,efficiency,serial,host_id,status,notes
+psu-01,Corsair,SF750,sfx,750,ac,80+ platinum,,,,
+psu-02,Corsair,SF750,sfx,750,ac,80+ platinum,,,,
+psu-03,Corsair,SF850,sfx,850,ac,80+ platinum,,,,
+psu-04,Corsair,SF450,sfx,450,ac,,,,,check label: CP-9020104 = 80+ gold / CP-9020181 = 80+ platinum
+psu-05,Apevia,ITX-AP300W,flex-atx,300,ac,,,,,no 80+ certification found
+psu-06,FSP,Mini ITX Solution/Flex ATX,flex-atx,500,ac,80+ gold,,,,likely FSP500-50FDB (gold); FSP500-50FSPT variant is platinum - check label
+psu-07,Enhance,ENP-7660B-VK,flex-atx,600,ac,80+ platinum,,,,
+psu-08,RGEEK,1106,dc-atx,300,dc-12v,,,,,
+psu-09,,DC ATX,dc-atx,100,dc,,,,,unknown brand
