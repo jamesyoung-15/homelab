@@ -5,32 +5,27 @@ on:
     paths:
       - docs/**
       - .github/workflows/cloudflare-pages-deployment.yml
-  pull_request:
-    branches:
-      - main
-    paths:
-      - docs/**
-      - .github/workflows/cloudflare-pages-deployment.yml
 
 jobs:
   deploy:
+    environment: production
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: write
     name: Deploy to Cloudflare Pages
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       
       - name: Setup Zensical Python Environment
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: 3.x
       - run: pip install zensical
       - run: zensical build --clean
       
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
