@@ -1,4 +1,11 @@
 {
-    "MD013": false,
-    "MD007": false
+  "MD013": false,
+  "MD007": false,
+  "MD025": {
+    "front_matter_title": ""
+  },
+  "MD041": {
+    "front_matter_title": "",
+    "allow_preamble": true
+  }
 }
