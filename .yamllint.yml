@@ -1,0 +1,12 @@
+extends: default
+
+rules:
+  # Relax the line length rules for long URLs or strings
+  line-length:
+    max: 120
+    allow-non-breakable-words: true
+    level: warning
+
+  indentation:
+    spaces: 2
+    indent-sequences: true
