@@ -15,8 +15,12 @@
       {
         devShells.default = mkShell {
           packages = [
+            python314
+            python314Packages.ansible
+            python314Packages.ansible-core
+            python314Packages.uv
+
             age
-            ansible
             ansible-lint
             diffutils
             git
@@ -48,6 +52,10 @@
             ansible-prod() {
               "$repo_root/scripts/ansible-env.sh" prod "$@"
             }
+
+            export UV_PYTHON_DOWNLOADS=never
+            export UV_PYTHON_PREFERENCE=only-system
+
         '';
         };
       }
