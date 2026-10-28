@@ -16,7 +16,6 @@
         devShells.default = mkShell {
           packages = [
             python314
-            python314Packages.ansible
             python314Packages.ansible-core
             python314Packages.uv
 
