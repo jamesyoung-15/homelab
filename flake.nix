@@ -52,6 +52,8 @@
               "$repo_root/scripts/ansible-env.sh" prod "$@"
             }
 
+            complete -F _command ansible-lab ansible-prod tofu-lab tofu-prod
+
             export UV_PYTHON_DOWNLOADS=never
             export UV_PYTHON_PREFERENCE=only-system
 
