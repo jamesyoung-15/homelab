@@ -69,7 +69,7 @@ Internal services and applications.
 
 ```txt
 10.15.50.1 — OPNsense interface
-10.15.50.10-99 — Static IPs for services (Home Assistant, Jellyfin, etc.)
+10.15.50.10-99 — Static IPs (may decrease/remove as most services will use DHCP)
 10.15.50.100-254 — DHCP pool
 ```
 
