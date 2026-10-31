@@ -7,13 +7,15 @@ Usage (call from repo root): python3 scripts/inventory-md.py
 
 import csv
 from collections import Counter
+from collections.abc import Iterable
 from pathlib import Path
 
 inventory_dir = Path(__file__).resolve().parent.parent / "docs" / "inventory"
 components_dir = inventory_dir / "components"
 
 
-def fmt_capacity(gb):
+def fmt_capacity(gb: str | int) -> str:
+    """Render a gigabyte count as TB when it divides evenly, otherwise GB."""
     if not gb:
         return ""
     gb = int(gb)
@@ -24,18 +26,25 @@ def fmt_capacity(gb):
 details = {
     "ram": lambda row: [row["ddr_gen"].upper(), fmt_capacity(row["capacity_gb"])],
     "storage": lambda row: [row["type"].upper(), fmt_capacity(row["capacity_gb"])],
-    "network": lambda row: [f'{row["ports"]}-port' if row["ports"] else "", row["speed"]],
+    "network": lambda row: [
+        f"{row['ports']}-port" if row["ports"] else "",
+        row["speed"],
+    ],
 }
 
 
-def label(row, stem):
+def label(row: dict[str, str], stem: str) -> str:
+    """Build the display name for one CSV row, with any per-CSV extras in brackets."""
     # nic.csv has no model, only chipset
-    name = " ".join(filter(None, (row.get("brand"), row.get("model") or row.get("chipset"))))
+    name = " ".join(
+        filter(None, (row.get("brand"), row.get("model") or row.get("chipset")))
+    )
     extra = ", ".join(filter(None, details[stem](row))) if stem in details else ""
     return f"{name} ({extra})" if extra else name
 
 
-def header(title):
+def header(title: str) -> list[str]:
+    """Return the title and do-not-edit comment every generated page starts with."""
     return [
         f"# {title}",
         "",
@@ -43,12 +52,14 @@ def header(title):
     ]
 
 
-def write(lines, output):
+def write(lines: list[str], output: Path) -> None:
+    """Write the rendered lines to disk and report the path."""
     output.write_text("\n".join(lines) + "\n")
     print(f"wrote {output}")
 
 
-def render(title, csv_paths, output):
+def render(title: str, csv_paths: Iterable[Path], output: Path) -> None:
+    """Render one page of counted items, with a section per CSV."""
     lines = header(title)
 
     csv_paths = sorted(csv_paths)
@@ -68,7 +79,7 @@ def render(title, csv_paths, output):
 
 
 # Domains are unique, so they get a table ordered by renewal date rather than counts
-domain_columns = [
+domain_columns: list[tuple[str, str]] = [
     ("domain", "Domain"),
     ("registrar", "Registrar"),
     ("expiration_date", "Expires"),
@@ -79,7 +90,8 @@ domain_columns = [
 ]
 
 
-def render_domains(csv_path, output):
+def render_domains(csv_path: Path, output: Path) -> None:
+    """Render the domains table ordered by expiry, with the active renewal total."""
     with csv_path.open(newline="") as f:
         rows = sorted(csv.DictReader(f), key=lambda row: row["expiration_date"])
 
@@ -89,12 +101,18 @@ def render_domains(csv_path, output):
         "|" + "---|" * len(domain_columns),
     ]
     for row in rows:
-        cells = [f'${row[key]}' if key == "renewal_cost_usd" else row[key] for key, _ in domain_columns]
+        cells = [
+            f"${row[key]}" if key == "renewal_cost_usd" else row[key]
+            for key, _ in domain_columns
+        ]
         lines.append("| " + " | ".join(cells) + " |")
 
     active = [row for row in rows if row["status"] == "active"]
     total = sum(float(row["renewal_cost_usd"]) for row in active)
-    lines += ["", f"**{len(active)}** active domains, **${total:.2f} USD** per year to renew."]
+    lines += [
+        "",
+        f"**{len(active)}** active domains, **${total:.2f} USD** per year to renew.",
+    ]
 
     write(lines, output)
 
