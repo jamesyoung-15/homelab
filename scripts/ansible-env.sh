@@ -22,5 +22,7 @@ if [[ ! -d "$ansible_dir" ]]; then
   exit 1
 fi
 
+export ANSIBLE_INVENTORY="$ansible_dir/inventory/$environment"
+
 cd "$ansible_dir"
 exec "$repo_root/scripts/with-secrets.sh" "$environment" -- "$@"
