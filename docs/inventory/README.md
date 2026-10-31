@@ -1,6 +1,6 @@
-# Hardware Inventory
+# Inventory
 
-Inventory of server/PC hardware across homelab and personal devices.
+Inventory of homelab and personal assets: server/PC hardware and registered domains.
 
 ## Summary
 
@@ -8,6 +8,7 @@ Generated from the CSVs by `scripts/inventory-md.py`:
 
 - [Components](components.md): CPUs, motherboards, GPUs, PSUs, RAM, storage, NICs
 - [Network](network.md): switches
+- [Domains](domains.md): registered domains by renewal date
 
 ## Source CSVs
 
@@ -15,6 +16,7 @@ Generated from the CSVs by `scripts/inventory-md.py`:
 |---|---|
 | [hosts.csv](hosts.csv) | Machines that run an OS: custom builds, prebuilts, SBCs |
 | [network.csv](network.csv) | Switches |
+| [domains.csv](domains.csv) | Registered domains |
 | [components/cpu.csv](components/cpu.csv) | CPUs |
 | [components/motherboard.csv](components/motherboard.csv) | Motherboards |
 | [components/gpu.csv](components/gpu.csv) | Discrete GPUs |
@@ -34,5 +36,5 @@ CSV designed to be able to put in a relational DB in future to map server to com
 - link used component to host, blank for unused
 - id prefixed per category, easier if I use a relational DB to map this in future
 - unit in column names for easier filtering/sorting
-- `status`: `in-use` / `spare` / `faulty` / `active` / `retired` (hosts, network).
+- `status`: `in-use` / `spare` / `faulty` / `active` / `retired` (hosts, network), `active` / `expired` (domains). Settings that are independent of lifecycle get their own `yes`/`no` column (e.g. `managed`, `poe`, `auto_renew`) rather than being folded into `status`
 - notes is free-text

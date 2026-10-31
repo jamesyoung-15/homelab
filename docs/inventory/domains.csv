@@ -1,0 +1,7 @@
+domain_id,domain,registrar,expiration_date,renewal_cost_usd,auto_renew,status,notes
+dom-1,jyyoung.com,cloudflare,2027-01-17,10.46,yes,active,blog and personal website
+dom-2,jyymail.com,cloudflare,2028-04-22,10.46,yes,active,custom email domain
+dom-3,jyylab.xyz,cloudflare,2026-12-16,11.20,yes,active,random projects
+dom-4,jyylab.com,cloudflare,2028-12-15,10.46,yes,active,for general side project
+dom-5,jyyhomelab.com,cloudflare,2027-11-25,10.46,yes,active,for public homelab stuff
+dom-6,osrsnpcguessr.com,cloudflare,2027-11-22,10.46,yes,active,for hobby project
