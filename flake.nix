@@ -54,6 +54,7 @@
 
             complete -F _command ansible-lab ansible-prod tofu-lab tofu-prod
 
+            export ANSIBLE_CONFIG="$repo_root/iac/ansible/ansible.cfg"
             export UV_PYTHON_DOWNLOADS=never
             export UV_PYTHON_PREFERENCE=only-system
 
