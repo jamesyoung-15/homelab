@@ -1,0 +1,8 @@
+---
+galaxy_info:
+  author: James
+  license: MIT
+  role_name: common
+  description: Baseline config shared by PVE, PBS and NAS hosts
+  min_ansible_version: "2.16"
+dependencies: []

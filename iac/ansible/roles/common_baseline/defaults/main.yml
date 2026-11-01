@@ -1,0 +1,16 @@
+---
+common_baseline_timezone: America/New_York
+
+common_baseline_packages:
+  - curl
+  - git
+  - htop
+  - rsync
+  - vim
+  - tmux
+
+common_baseline_journal_max_use: 512M
+
+# overridden per group (eg. PVE cluster needs root SSH between nodes)
+common_baseline_sshd_permit_root_login: "no"
+common_baseline_sshd_password_authentication: "no"
