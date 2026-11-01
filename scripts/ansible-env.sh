@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Usage: ansible-env.sh <environment> <command> [args...]
-# Example: ansible-env.sh lab ansible-playbook playbooks/site.yml
+# Example: ansible-env.sh lab ansible-playbook iac/ansible/playbooks/site.yml
+# Paths are relative to the current directory, like any normal command
 
 set -euo pipefail
 
@@ -22,7 +23,8 @@ if [[ ! -d "$ansible_dir" ]]; then
   exit 1
 fi
 
+# Set explicitly so the cfg is found from any directory, not just iac/ansible
+export ANSIBLE_CONFIG="$ansible_dir/ansible.cfg"
 export ANSIBLE_INVENTORY="$ansible_dir/inventory/$environment"
 
-cd "$ansible_dir"
 exec "$repo_root/scripts/with-secrets.sh" "$environment" -- "$@"
