@@ -1,0 +1,8 @@
+---
+- name: Boostrap Fresh Proxmox Server
+  hosts: proxmox
+  # set serial to 1 to upgrade and reboot one node at time
+  serial: 1
+  roles:
+    - pve_baseline
+    - common_baseline
