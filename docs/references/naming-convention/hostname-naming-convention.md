@@ -50,11 +50,14 @@ Keep provider codes short and stable.
 
 Identifies the physical or regional location.
 
+Site codes are exactly 4 lowercase characters. 
+This keeps homelab codes consistent with the cloud region codes below, and keeps [cluster names](#proxmox-clusters) within Proxmox's length limit.
+
 Homelab examples:
 
 ```bash
-- home
-- parents
+- home   Primary home
+- prnt   Parents' place
 ```
 
 Cloud examples:
@@ -150,8 +153,8 @@ hml-home-prd-lxc-vpn01
 
 ### Homelab at secondary location
 
-hml-parents-prd-phy-hv01  
-hml-parents-prd-vm-backup01  
+hml-prnt-prd-phy-hv01  
+hml-prnt-prd-vm-backup01  
 
 ### AWS
 
@@ -173,3 +176,30 @@ htz-hel1-prd-vm-edge01
 5. Do not encode the Proxmox host into VM or container names.
 6. Keep role names short and consistent.
 7. Only increment numbers within the same provider, site, environment, and role.
+8. Site codes are exactly 4 characters.
+
+---
+
+## Proxmox Clusters
+
+Proxmox cluster names are limited to 15 characters (letters, digits, and hyphens, starting with a letter) and can't easily be renamed after creation, so they use a shortened form of the hostname format:
+
+```bash
+<Site>-<Environment>-pve<Number>
+```
+
+Examples:
+
+```bash
+home-prd-pve01   Production cluster
+home-lab-pve01   Lab cluster
+home-prd-pve02   Second production cluster
+prnt-prd-pve01   Cluster at parents' place
+```
+
+- Drops Provider, as Proxmox clusters only exist in the homelab (always `hml`).
+- Drops Type, as a cluster is a logical grouping rather than something that runs as `phy`/`vm`/`lxc`.
+- Role is `pve` rather than `hv`, since `hv` names a single node.
+- Number is always included, so a second cluster at the same site and environment doesn't need a rename.
+- With 4 character site codes, every cluster name is 14 characters, under the 15 character limit.
+- A node's hostname shares the site and environment with its cluster, eg. `hml-home-prd-phy-hv01` belongs to `home-prd-pve01`.
