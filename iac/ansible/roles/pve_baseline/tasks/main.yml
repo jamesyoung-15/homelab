@@ -1,0 +1,56 @@
+---
+- name: Disable enterprise repos
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regexp: "^Enabled:"
+    line: "Enabled: false"
+    insertafter: "^Types:"
+  loop: "{{ pve_baseline_enterprise_sources }}"
+  tags: [pve_baseline, repos]
+
+- name: Add no-subscription repo
+  ansible.builtin.template:
+    src: pve.sources.j2
+    dest: /etc/apt/sources.list.d/pve.sources
+    owner: root
+    group: root
+    mode: "0644"
+  tags: [pve_baseline, repos]
+
+- name: Dist-upgrade
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: true
+  tags: [pve_baseline, upgrade]
+
+- name: Find installed kernels
+  ansible.builtin.find:
+    paths: /boot
+    patterns: "vmlinuz-*"
+  register: pve_baseline_kernels
+  tags: [pve_baseline, upgrade]
+
+- name: Reboot if running an older kernel than installed
+  ansible.builtin.reboot:
+    reboot_timeout: 600
+  vars:
+    pve_baseline_latest_kernel: >-
+      {{ pve_baseline_kernels.files | map(attribute='path') | map('basename')
+         | map('regex_replace', '^vmlinuz-', '') | community.general.version_sort | last }}
+  when: pve_baseline_latest_kernel != ansible_facts['kernel']
+  tags: [pve_baseline, upgrade]
+
+- name: Disable HA services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop: [pve-ha-lrm, pve-ha-crm]
+  when: pve_baseline_disable_ha
+  tags: [pve_baseline, ha]
+
+- name: Install QDevice client
+  ansible.builtin.apt:
+    name: corosync-qdevice
+    state: present
+  tags: [pve_baseline, qdevice]

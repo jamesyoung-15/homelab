@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+Types: deb
+URIs: {{ pve_baseline_repo_uri }}
+Suites: {{ ansible_facts['distribution_release'] }}
+Components: {{ pve_baseline_repo_component }}
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg

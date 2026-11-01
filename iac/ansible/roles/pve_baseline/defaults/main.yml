@@ -1,0 +1,11 @@
+---
+pve_baseline_repo_uri: http://download.proxmox.com/debian/pve
+pve_baseline_repo_component: pve-no-subscription
+
+# Shipped by the PVE 9 installer, both point at enterprise (needs subscription)
+pve_baseline_enterprise_sources:
+  - /etc/apt/sources.list.d/pve-enterprise.sources
+  - /etc/apt/sources.list.d/ceph.sources
+
+# Non-HA cluster, so the HA services just add writes to the boot SSDs
+pve_baseline_disable_ha: true
