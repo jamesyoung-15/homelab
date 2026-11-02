@@ -18,7 +18,7 @@ I did consider some ID schemes, such as encoding VLAN and static IP into VM/CT I
 
 ### LXC and VM Naming
 
-Set the LXC hostname and VM name to match [Hostname Naming Convention](./Hostname-Naming-Convention.md):
+Set the LXC hostname and VM name to match [Hostname Naming Convention](./hostname-naming-convention.md):
 
 ```bash
 <Provider>-<Site>-<Environment>-<Type>-<Role><Number>
@@ -53,7 +53,7 @@ Optional tags for additional context:
 ```bash
 app:<application>     Application/service (e.g., app:nextcloud, app:jellyfin)
 tier:<tier>           Criticality tier (e.g., tier:critical, tier:standard, tier:experimental)
-site:<site>           Physical/regional location (e.g., site:home, site:parents)
+site:<site>           Physical/regional location (e.g., site:home, site:prnt)
 ```
 
 ### Tag Examples
@@ -111,7 +111,7 @@ Common purposes:
 
 ## Guidelines
 
-1. **Hostname as primary identifier**: Set the hostname according to the [Hostname Naming Convention](./Hostname-Naming-Convention.md). This is the main way to identify VMs/containers.
+1. **Hostname as primary identifier**: Set the hostname according to the [Hostname Naming Convention](./hostname-naming-convention.md). This is the main way to identify VMs/containers.
 2. **Proxmox auto-increment IDs**: Use Proxmox's default auto-increment for VM/LXC IDs. Custom numeric schemes are not necessary.
 3. **Tag for organization**: Apply tags at minimum: `vlan:<id>`, `env:<env>`, `role:<role>`. Additional tags (`app:<app>`, `tier:<tier>`) can be added as needed.
 4. **Consistent tag values**: Tag values should align with hostname convention fields (`env`, `role`, `site`) for consistency.
