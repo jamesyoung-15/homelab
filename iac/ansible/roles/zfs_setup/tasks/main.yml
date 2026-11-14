@@ -1,0 +1,56 @@
+---
+# only supports Debian
+
+- name: Add contrib to apt sources for Debian
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list.d/debian.sources
+    # regex only for Debian 12+
+    regexp: '^(Components:\s+(?!.*\bcontrib\b).*)$'
+    replace: '\1 contrib'
+  register: zfs_setup_sources_modified
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install kernel headers
+  ansible.builtin.apt:
+    name:
+      - "linux-headers-{{ ansible_facts['kernel'] }}"
+      - "{{ zfs_setup_kernel_headers_package }}"
+    state: present
+
+- name: Install zfs packages
+  ansible.builtin.apt:
+    name:
+      - zfsutils-linux
+      - zfs-dkms
+    state: present
+    update_cache: true
+
+- name: Load ZFS kernel modules
+  community.general.modprobe:
+    name: zfs
+
+- name: Create ZFS pools
+  community.general.zpool:
+    name: "{{ item.name }}"
+    vdevs: "{{ item.vdevs }}"
+    pool_properties: "{{ zfs_setup_pool_properties | combine(item.pool_properties | default({})) }}"
+    filesystem_properties: "{{ zfs_setup_filesystem_properties | combine(item.filesystem_properties | default({})) }}"
+    mountpoint: "{{ item.mountpoint | default(omit) }}"
+  loop: "{{ zfs_setup_pools }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: zfs_setup_create_pools
+
+- name: Create ZFS datasets
+  community.general.zfs:
+    name: "{{ item.name }}"
+    state: present
+    extra_zfs_properties: "{{ item.properties | default({}) }}"
+  loop: "{{ zfs_setup_datasets }}"
+  when: zfs_setup_create_datasets

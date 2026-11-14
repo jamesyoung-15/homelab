@@ -1,0 +1,15 @@
+---
+# overridable as cloud image uses different header package
+zfs_setup_kernel_headers_package: linux-headers-amd64
+
+# zfs pool configs
+zfs_setup_pools: []
+zfs_setup_pool_properties:
+  ashift: 12  # most modern drives now have 4k blocks
+zfs_setup_filesystem_properties:
+  compression: lz4  # chosen for high speed low CPU overhead although ztsd also good
+  atime: "off"  # quoted to prevent YAML reading it as false
+
+# toggle running tasks to create pools and datasets
+zfs_setup_create_pools: true
+zfs_setup_create_datasets: true
