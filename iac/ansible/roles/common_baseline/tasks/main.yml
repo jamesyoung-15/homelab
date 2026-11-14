@@ -41,3 +41,27 @@
     validate: /usr/sbin/sshd -t -f %s
   notify: Restart sshd
   tags: [common_baseline, sshd]
+
+- name: Dist-upgrade
+  ansible.builtin.apt:
+    upgrade: dist
+    update_cache: true
+  when: common_baseline_upgrade
+
+- name: Find installed kernels
+  ansible.builtin.find:
+    paths: /boot
+    patterns: "vmlinuz-*"
+  register: common_baseline_installed_kernels
+  when: common_baseline_upgrade
+
+- name: Reboot if running an older kernel than installed
+  ansible.builtin.reboot:
+    reboot_timeout: 600
+  vars:
+    common_baseline_latest_kernel: >-
+      {{ common_baseline_installed_kernels.files | map(attribute='path') | map('basename')
+         | map('regex_replace', '^vmlinuz-', '') | community.general.version_sort | last }}
+  when:
+    - common_baseline_latest_kernel != ansible_facts['kernel']
+    - common_baseline_upgrade
