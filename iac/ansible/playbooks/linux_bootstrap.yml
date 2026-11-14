@@ -1,0 +1,7 @@
+---
+- name: Linux Server Bootstrap
+  hosts: "{{ target_hosts  | default(omit) }}"
+  become: true
+  roles:
+    - common_baseline
+    - iac_user_setup
