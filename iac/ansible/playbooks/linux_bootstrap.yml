@@ -1,6 +1,6 @@
 ---
 - name: Linux Server Bootstrap
-  hosts: "{{ target_hosts  | default(omit) }}"
+  hosts: "{{ target_hosts }}"
   become: true
   roles:
     - common_baseline
