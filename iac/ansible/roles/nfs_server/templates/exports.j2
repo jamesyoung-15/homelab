@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+{% for export in nfs_server_exports %}
+{{ export.path }}{% for client in export.clients %} {{ client.host }}({{ client.options | default(nfs_server_default_options) }}){% endfor %}
+
+{% endfor %}
