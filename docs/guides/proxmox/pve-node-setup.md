@@ -166,10 +166,14 @@ OpenTofu uses a dedicated non-root user with an API token.
 pveum user add automation@pve --comment "Terraform"
 pveum aclmod / -user automation@pve -role PVEAdmin
 pveum user token add automation@pve terraform --privsep 0
+pveum role add TerraformNode --privs "Sys.AccessNetwork"
+pveum aclmod / -user automation@pve -role TerraformNode
 ```
 
 - `--privsep 0` makes the token inherit the user's permissions, so the ACL only needs setting on the user.
 - `PVEAdmin` is broad (but not root-equivalent). Swap for a custom least-privilege role later.
+- `TerraformNode` adds `Sys.AccessNetwork`, which `PVEAdmin` lacks but downloading files by URL (eg. `proxmox_download_file` for cloud images) needs. Assign it on `/` alongside `PVEAdmin`: an ACL on a deeper path (eg. `/nodes`) replaces the user's inherited `PVEAdmin` permissions there instead of adding to them.
+- Check effective permissions with `pveum user permissions automation@pve --path /nodes/<HOSTNAME>`.
 - The token secret is only shown once.
 
 Add to `iac/secrets/<env>.sops.yaml` (see [Secrets](../iac-automation-setup.md#secrets)). For a cluster, any node's address works as the endpoint:

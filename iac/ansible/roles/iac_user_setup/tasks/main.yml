@@ -1,0 +1,27 @@
+---
+- name: Install sudo package
+  ansible.builtin.package:
+    name: sudo
+    state: present
+
+- name: Add automation user
+  ansible.builtin.user:
+    name: "{{ iac_user_setup_username }}"
+    uid: "{{ iac_user_setup_uid | default(omit) }}"
+    state: present
+    shell: /bin/bash
+
+- name: Add SSH key to automation user
+  ansible.posix.authorized_key:
+    user: "{{ iac_user_setup_username }}"
+    state: present
+    key: "{{ lookup('file', iac_user_setup_key_location) }}"
+
+- name: Allow passwordless sudo for automation user
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ iac_user_setup_username }}"
+    content: "{{ iac_user_setup_username }} ALL=(ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: "0440"
+    validate: /usr/sbin/visudo -cf %s

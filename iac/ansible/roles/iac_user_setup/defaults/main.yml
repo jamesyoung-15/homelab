@@ -1,0 +1,4 @@
+---
+iac_user_setup_username: automation
+iac_user_setup_key_location: "~/.ssh/hml-automation.pub"
+# iac_user_setup_uid: 1069
