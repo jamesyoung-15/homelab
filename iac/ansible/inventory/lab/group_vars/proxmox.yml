@@ -1,0 +1,3 @@
+---
+ansible_user: root
+common_baseline_sshd_permit_root_login: prohibit-password
