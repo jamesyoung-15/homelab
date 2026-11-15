@@ -31,3 +31,21 @@
     name: corosync-qdevice
     state: present
   tags: [pve_baseline, qdevice]
+
+- name: Ensure snippets directory exists
+  ansible.builtin.file:
+    path: /var/lib/vz/snippets
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tags: [pve_baseline, snippets]
+
+- name: Add cloud-init vendor data for QEMU guest agent
+  ansible.builtin.copy:
+    src: vendor-qemu-agent.yml
+    dest: /var/lib/vz/snippets/vendor-qemu-agent.yml
+    owner: root
+    group: root
+    mode: "0644"
+  tags: [pve_baseline, snippets]
