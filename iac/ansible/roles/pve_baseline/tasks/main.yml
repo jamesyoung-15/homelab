@@ -1,4 +1,14 @@
 ---
+- name: Assert root SSH login stays enabled
+  ansible.builtin.assert:
+    that:
+      - (common_baseline_sshd_permit_root_login | default('no')) in ['yes', 'prohibit-password']
+    fail_msg: >-
+      PVE nodes need root SSH (cluster, QDevice setup, Ansible connects as root).
+      Set common_baseline_sshd_permit_root_login: prohibit-password in the group's group_vars.
+    quiet: true
+  tags: [pve_baseline, always]
+
 - name: Disable enterprise repos
   ansible.builtin.lineinfile:
     path: "{{ item }}"
@@ -49,13 +59,3 @@
     group: root
     mode: "0644"
   tags: [pve_baseline, snippets]
-
-- name: Assert root SSH login stays enabled
-  ansible.builtin.assert:
-    that:
-      - (common_baseline_sshd_permit_root_login | default('no')) in ['yes', 'prohibit-password']
-    fail_msg: >-
-      PVE nodes need root SSH (cluster, QDevice setup, Ansible connects as root).
-      Set common_baseline_sshd_permit_root_login: prohibit-password in the group's group_vars.
-    quiet: true
-  tags: [pve_baseline, always]
