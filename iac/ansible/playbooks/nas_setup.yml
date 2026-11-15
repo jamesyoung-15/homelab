@@ -1,0 +1,31 @@
+---
+- name: NAS Setup
+  hosts: nas
+  become: true
+  tasks:
+    - name: Include common_baseline role
+      ansible.builtin.include_role:
+        name: common_baseline
+
+    - name: Install NAS-specific tools
+      ansible.builtin.apt:
+        name:
+          - smartmontools
+          - hdparm
+
+    - name: Show disks
+      ansible.builtin.debug:
+        msg: >-
+          {{ item.key }}: {{ item.value.model }} {{ item.value.size }}
+          ids={{ item.value.links.ids }}
+      loop: "{{ ansible_facts.devices | dict2items | selectattr('key', 'match', '^(sd|nvme)') | list }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Include zfs_setup role
+      ansible.builtin.include_role:
+        name: zfs_setup
+
+    - name: Include nfs_server role
+      ansible.builtin.include_role:
+        name: nfs_server
