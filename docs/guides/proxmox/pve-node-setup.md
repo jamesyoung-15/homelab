@@ -187,6 +187,27 @@ proxmox:
 
 Verify with `tofu-lab plan` (or `tofu-prod plan`), which should read the host's nodes without errors.
 
+### 9. Storage Content for Cloud Images
+
+VMs are created from cloud images with cloud-init (generally Debian). The `local` storage needs two content types:
+
+- `import`: holds downloaded cloud images (`proxmox_download_file`), used as VM boot disks. Usually enabled by default.
+- `snippets`: holds cloud-init vendor data. `pve_baseline` copies `vendor-qemu-agent.yml` there, which installs and starts the QEMU guest agent on first boot.
+
+Storage config is cluster-wide, so for a cluster do this once on any node. Check the current list:
+
+```bash
+grep -A3 '^dir: local' /etc/pve/storage.cfg
+```
+
+`--content` replaces the whole list, so pass the existing types plus the missing ones, eg.:
+
+```bash
+pvesm set local --content iso,vztmpl,backup,import,snippets
+```
+
+Verify the `content` line again, then rerun the baseline playbook (`--tags snippets` is enough) and check `ls /var/lib/vz/snippets/` on each node shows the file.
+
 ## Next Steps
 
 - [Cluster Setup](pve-cluster-setup.md), if the node will be part of a cluster.
