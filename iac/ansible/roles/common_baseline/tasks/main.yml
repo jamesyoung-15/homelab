@@ -12,6 +12,15 @@
     cache_valid_time: 3600
   tags: [common_baseline, packages]
 
+- name: Install QEMU guest agent
+  ansible.builtin.apt:
+    name: qemu-guest-agent
+    state: present
+  when:
+    - ansible_facts['virtualization_type'] == 'kvm'
+    - ansible_facts['virtualization_role'] == 'guest'
+  tags: [common_baseline, packages]
+
 - name: Ensure journald drop-in directory exists
   ansible.builtin.file:
     path: /etc/systemd/journald.conf.d
@@ -47,6 +56,7 @@
     upgrade: dist
     update_cache: true
   when: common_baseline_upgrade
+  tags: [common_baseline, upgrade]
 
 - name: Find installed kernels
   ansible.builtin.find:
@@ -54,6 +64,7 @@
     patterns: "vmlinuz-*"
   register: common_baseline_installed_kernels
   when: common_baseline_upgrade
+  tags: [common_baseline, upgrade]
 
 - name: Reboot if running an older kernel than installed
   ansible.builtin.reboot:
@@ -65,3 +76,5 @@
   when:
     - common_baseline_latest_kernel != ansible_facts['kernel']
     - common_baseline_upgrade
+  tags: [commonbaseline, upgrade]
+
